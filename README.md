@@ -1,0 +1,2 @@
+# BigStepper
+This repository contians a simple implementation of interfacing with big stepper motors. This implementation assumes that the only signals needed for the driver are a single pulse signal and a single constant signal indicating the direction.
