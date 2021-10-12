@@ -1,5 +1,9 @@
 #include <BigStepper.h>
 
+BigStepper::BigStepper()
+{
+}
+
 BigStepper::BigStepper(uint8_t _driverPUL, uint8_t _driverDIR)
 {
     currentAngle = 0;
@@ -73,12 +77,12 @@ void BigStepper::Step()
     delay(20);
 }
 
-void BigStepper::SetMicrostepsPerStep(double _microstepsPerStep)
+void BigStepper::SetMicrostepsPerStep(uint16_t _microstepsPerStep)
 {
     microstepsPerStep = _microstepsPerStep;
 }
 
-void BigStepper::SetStepsPerRev(double _stepsPerRev)
+void BigStepper::SetStepsPerRev(uint16_t _stepsPerRev)
 {
     stepsPerRev = _stepsPerRev;
 }
