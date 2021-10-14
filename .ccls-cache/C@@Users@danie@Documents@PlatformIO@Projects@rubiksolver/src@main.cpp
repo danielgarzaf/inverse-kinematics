@@ -4,10 +4,7 @@
 // Main consts and variables
 const uint8_t START_PIN = 22;
 const uint8_t N_MOTORS = 3;
-BigStepper motor1(22, 23);
-BigStepper motor2(24, 25);
-BigStepper motor3(26, 27);
-BigStepper stepperMotors[] = {motor1, motor2, motor3};
+BigStepper stepperMotors[N_MOTORS];
 
 // Prototype functions
 void stepMotors();
@@ -15,7 +12,8 @@ bool motorsReachedTargets();
 
 void setup()
 {
-  // Serial.begin(9600);
+  for (uint8_t i = START_PIN; i < START_PIN + 2 * N_MOTORS; i += 2)
+    stepperMotors[i] = BigStepper(i, i + 1);
 }
 
 void loop()
@@ -33,14 +31,8 @@ void stepMotors()
 {
   while (!motorsReachedTargets())
   {
-    uint8_t i = 1;
     for (BigStepper &motor : stepperMotors)
-    {
-      // Serial.print("\nMOTOR ");
-      // Serial.println(i++);
-      // motor.PrintAnglesArduino();
       motor.StepToTargetAngle();
-    }
   }
 }
 

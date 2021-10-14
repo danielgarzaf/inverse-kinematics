@@ -19,7 +19,6 @@ private:
 public:
     BigStepper();
     BigStepper(uint8_t _driverPUL, uint8_t _driverDIR);
-    void PrintAnglesArduino();
     void Rotate(double deg);
     void SetTargetAngle(double angle);
     void SetMicrostepsPerStep(uint16_t _microstepsPerStep);
@@ -31,6 +30,7 @@ public:
 
 private:
     void Step();
+    void PrintAnglesArduino();
 };
 
 #endif

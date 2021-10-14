@@ -52,12 +52,12 @@ void BigStepper::StepToTargetAngle()
     if (currentAngle < targetAngle)
     {
         digitalWrite(driverDIR, LOW);
-        currentAngle += 360 / (stepsPerRev + 0.0f);
+        currentAngle += 360 / stepsPerRev;
     }
     else if (currentAngle > targetAngle)
     {
         digitalWrite(driverDIR, HIGH);
-        currentAngle -= 360 / (stepsPerRev + 0.0f);
+        currentAngle -= 360 / stepsPerRev;
     }
 
     if (currentAngle < 0)
@@ -72,9 +72,9 @@ void BigStepper::StepToTargetAngle()
 void BigStepper::Step()
 {
     digitalWrite(driverPUL, HIGH);
-    delay(10);
+    delay(20);
     digitalWrite(driverPUL, LOW);
-    delay(10);
+    delay(20);
 }
 
 void BigStepper::SetMicrostepsPerStep(uint16_t _microstepsPerStep)
