@@ -4,3 +4,4 @@
 *.o
 *.blob
 .ccls-cache
+.ccls

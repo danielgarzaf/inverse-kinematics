@@ -3,8 +3,8 @@ clang++
 %c -std=gnu11 -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=megaatmega2560
 %cpp -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=megaatmega2560
 
--IC:/Users/danie/Documents/PlatformIO/Projects/vim-project-test/include
--IC:/Users/danie/Documents/PlatformIO/Projects/vim-project-test/src
+-IC:/Users/danie/Documents/PlatformIO/Projects/inverse-kinematics/include
+-IC:/Users/danie/Documents/PlatformIO/Projects/inverse-kinematics/src
 -IC:/Users/danie/.platformio/packages/framework-arduino-avr/cores/arduino
 -IC:/Users/danie/.platformio/packages/framework-arduino-avr/variants/mega
 -IC:/Users/danie/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src
