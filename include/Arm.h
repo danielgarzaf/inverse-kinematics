@@ -23,9 +23,9 @@ public:
   Joint *GetJoints();
 
 private:
-  void *InverseKinematics(double (&vec3d)[3], double (&angles)[MAX_JOINTS]);
-  void *InverseKinematics(double x, double y, double z,
-                          double (&angles)[MAX_JOINTS]);
+  void InverseKinematics(double (&vec3d)[3], double (&angles)[MAX_JOINTS]);
+  void InverseKinematics(double x, double y, double z,
+                         double (&angles)[MAX_JOINTS]);
 };
 
 #endif

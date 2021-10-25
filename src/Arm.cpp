@@ -67,8 +67,7 @@ void Arm::SetTipperPosition(double x, double y, double z) {
     joints[i].SetTargetAngle(angles[i]);
 }
 
-void *Arm::InverseKinematics(double (&vec3d)[3], double (&angles)[MAX_JOINTS]) {
-}
+void Arm::InverseKinematics(double (&vec3d)[3], double (&angles)[MAX_JOINTS]) {}
 
-void *Arm::InverseKinematics(double x, double y, double z,
-                             double (&angles)[MAX_JOINTS]) {}
+void Arm::InverseKinematics(double x, double y, double z,
+                            double (&angles)[MAX_JOINTS]) {}
