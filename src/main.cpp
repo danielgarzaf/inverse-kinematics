@@ -14,15 +14,11 @@ Arm arm(N_JOINTS, joints);
 
 // Prototype functions
 void stepMotors();
-bool motorsReachedTargets();
+uint8_t motorsLeft();
 
-void setup()
-{
-  Serial.begin(9600);
-}
+void setup() { Serial.begin(9600); }
 
-void loop()
-{
+void loop() {
   uint8_t i = 1;
   for (Joint &joint : joints)
     joint.SetTargetAngle(45 * i++);
@@ -32,26 +28,24 @@ void loop()
   stepMotors();
 }
 
-void stepMotors()
-{
-  while (!motorsReachedTargets())
-  {
-    uint8_t i = 0;
-    for (Joint &joint : joints)
-    {
-      // Delay must be inversely proportional to the number of motors left to reach target. This avoids motors fluctuating in speed
-      if (joint.HasReachedTarget())
-        i++;
-      uint8_t delay = 200 / (N_JOINTS - i);
+void stepMotors() {
+  uint8_t left = motorsLeft();
+  while (left > 0) {
+    for (Joint &joint : joints) {
+      // Delay must be inversely proportional to the number of motors left to
+      // reach target. This avoids motors fluctuating in speed
+      uint8_t delay = 200 / (N_JOINTS - left);
       joint.StepToTargetAngle(delay);
     }
+    left = motorsLeft();
   }
 }
 
-bool motorsReachedTargets()
-{
-  bool result = true;
-  for (Joint &joint : joints)
-    result &= joint.HasReachedTarget();
+uint8_t motorsLeft() {
+  uint8_t result = 0;
+  for (Joint &joint : joints) {
+    if (joint.HasReachedTarget())
+      result++;
+  }
   return result;
 }
