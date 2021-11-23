@@ -6,19 +6,6 @@
 
 class BigStepper {
 public:
-  uint8_t driverDIR;
-  uint8_t driverPUL;
-
-protected:
-  double currentAngle;
-  double targetAngle;
-  uint16_t microstepsPerStep;
-  uint16_t stepsPerRev;
-
-private:
-  bool cw;
-
-public:
   BigStepper();
   BigStepper(uint8_t _driverPUL, uint8_t _driverDIR);
   void PrintAnglesArduino();
@@ -32,9 +19,18 @@ public:
   bool HasReachedTarget();
   double GetCurrentAngle();
   double GetTargetAngle();
+  uint8_t driverDIR;
+  uint8_t driverPUL;
 
 protected:
   void Step(uint8_t delay_ms);
+  double currentAngle;
+  double targetAngle;
+  uint16_t microstepsPerStep;
+  uint16_t stepsPerRev;
+
+private:
+  bool cw;
 };
 
 #endif

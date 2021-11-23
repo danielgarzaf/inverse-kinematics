@@ -12,15 +12,12 @@ public:
   void StepToTargetAngle(uint8_t _delay_ms);
   void SetTargetAngle(double _targetAngle);
   bool TargetOutOfBounds();
-  double GetX();
-  double GetY();
-  double GetZ();
+  double x, y, z;
 
 private:
   double len;
   double upperLimit;
   double lowerLimit;
-  double x, y, z;
   double *vec3d[3] = {&x, &y, &z};
 };
 
