@@ -14,7 +14,7 @@ void Arm::ReachTipperPosition() {
   uint8_t jointsLeft = JointsLeft();
   while (jointsLeft > 0) {
     for (Joint &joint : m_joints)
-      joint.StepToTargetAngle(ARM_DELAY);
+      joint.StepToTargetAngle(ARM_DELAY(jointsLeft));
     jointsLeft = JointsLeft();
   }
 }

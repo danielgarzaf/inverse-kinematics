@@ -2,7 +2,7 @@
 #define _ARM_H_
 
 #define MAX_JOINTS 6
-#define ARM_DELAY (JOINT_DELAY) / (N_JOINTS - jointsLeft)
+#define ARM_DELAY(jointsLeft) (JOINT_DELAY) / (N_JOINTS - jointsLeft)
 
 #include <Joint.h>
 
