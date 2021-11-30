@@ -33,7 +33,7 @@ void BigStepper::SetPinPUL(uint8_t pin) {
 void BigStepper::Rotate(double deg) {
   SetTargetAngle(deg);
   while (!HasReachedTarget())
-    StepToTargetAngle(5);
+    StepToTargetAngle(BIG_STEPPER_DELAY);
 }
 
 void BigStepper::StepToTargetAngle(uint8_t _delay_ms) {
@@ -84,14 +84,6 @@ void BigStepper::SetStepsPerRev(uint16_t _stepsPerRev) {
 
 void BigStepper::SetTargetAngle(double _targetAngle) {
   targetAngle = _targetAngle;
-}
-
-void BigStepper::PrintAnglesArduino() {
-  Serial.println("-----------------------------------------");
-  Serial.print("currentAngle: ");
-  Serial.print(currentAngle);
-  Serial.print("\ttargetAngle: ");
-  Serial.println(targetAngle);
 }
 
 double BigStepper::GetCurrentAngle() { return currentAngle; }
