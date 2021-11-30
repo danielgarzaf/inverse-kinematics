@@ -14,19 +14,14 @@ void Arm::ReachTipperPosition() {
   uint8_t jointsLeft = JointsLeft();
   while (jointsLeft > 0) {
     for (Joint &joint : m_joints)
-      joint.StepToTargetAngle(JOINT_DELAY / (N_JOINTS - jointsLeft));
+      joint.StepToTargetAngle(ARM_DELAY);
     jointsLeft = JointsLeft();
   }
 }
 
 void Arm::ReachTipperPosition(double x, double y, double z) {
   SetTipperPosition(x, y, z);
-  uint8_t jointsLeft = JointsLeft();
-  while (jointsLeft > 0) {
-    for (Joint &joint : m_joints)
-      joint.StepToTargetAngle(JOINT_DELAY / (N_JOINTS - jointsLeft));
-    jointsLeft = JointsLeft();
-  }
+  ReachTipperPosition();
 }
 
 uint8_t Arm::JointsLeft() {
@@ -69,7 +64,6 @@ void Arm::SetTipperPosition(double x, double y, double z) {
   // array of angles for every joint
   double angles[MAX_JOINTS];
   InverseKinematics(x, y, z, angles);
-
   for (uint8_t i = 0; i < N_JOINTS; i++)
     m_joints[i].SetTargetAngle(angles[i]);
 }
