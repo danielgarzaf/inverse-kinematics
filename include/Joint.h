@@ -1,5 +1,6 @@
 #ifndef _JOINT_H_
 #define _JOINT_H_
+#define JOINT_DELAY 200
 
 #include <BigStepper.h>
 #include <stdint.h>
