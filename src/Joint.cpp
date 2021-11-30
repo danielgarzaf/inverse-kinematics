@@ -40,9 +40,3 @@ void Joint::SetTargetAngle(double _targetAngle) {
 bool Joint::TargetOutOfBounds() {
   return (targetAngle < lowerLimit) || (targetAngle > upperLimit);
 }
-
-double Joint::GetX() { return x; }
-
-double Joint::GetY() { return y; }
-
-double Joint::GetZ() { return z; }
