@@ -48,10 +48,13 @@ bool Joint::TargetOutOfBounds() {
 
 void Joint::UpdatePosition() {
   x = len * cos(currentAngle);
-  if (plane == XY)
+  if (plane == XY) {
     y = len * sin(currentAngle);
-  else if (plane == XZ)
+    z = 0;
+  } else if (plane == XZ) {
+    y = 0;
     z = len * sin(currentAngle);
+  }
 
   if (parent) {
     x += parent->x;
