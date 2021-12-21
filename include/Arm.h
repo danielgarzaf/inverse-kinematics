@@ -9,15 +9,15 @@
 class Arm {
 private:
   uint8_t JointsLeft();
+  uint8_t N_JOINTS;
   void InverseKinematics(double x, double y, double z,
                          double (&angles)[MAX_JOINTS]);
-  uint8_t N_JOINTS;
   Joint m_joints[MAX_JOINTS];
 
 public:
   Arm(const uint8_t _N_JOINTS, Joint (&_joints)[MAX_JOINTS]);
   bool JointsReachedTarget();
-  void PrintJointsAngle();
+  void PrintJointsAngles();
   void PrintJointsPins();
   void ReachTipperPosition();
   void ReachTipperPosition(double x, double y, double z);
@@ -25,4 +25,4 @@ public:
   Joint *GetJoints();
 };
 
-#endif
+#endif /* _ARM_H_ */

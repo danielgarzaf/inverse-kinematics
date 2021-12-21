@@ -8,7 +8,7 @@
 class BigStepper {
 public:
   BigStepper();
-  BigStepper(uint8_t _driverPUL, uint8_t _driverDIR);
+  BigStepper(uint8_t _driverDIR, uint8_t _driverPUL);
   void Rotate(double deg);
   void SetTargetAngle(double _targetAngle);
   void SetMicrostepsPerStep(uint16_t _microstepsPerStep);
@@ -33,4 +33,4 @@ private:
   bool cw;
 };
 
-#endif
+#endif /* _BIG_STEPPER_H_ */

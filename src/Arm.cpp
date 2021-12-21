@@ -40,7 +40,7 @@ bool Arm::JointsReachedTarget() {
   return result;
 }
 
-void Arm::PrintJointsAngle() {
+void Arm::PrintJointsAngles() {
   Serial.println("----------------------ANGLES--------------------------");
   for (uint8_t i = 0; i < N_JOINTS; i++) {
     Serial.print("Joint ");

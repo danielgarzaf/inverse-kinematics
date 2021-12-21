@@ -2,13 +2,13 @@
 
 BigStepper::BigStepper() {}
 
-BigStepper::BigStepper(uint8_t _driverPUL, uint8_t _driverDIR) {
+BigStepper::BigStepper(uint8_t _driverDIR, uint8_t _driverPUL) {
   currentAngle = 0;
   targetAngle = 0;
   microstepsPerStep = 0;
   stepsPerRev = 200;
-  driverPUL = _driverPUL;
   driverDIR = _driverDIR;
+  driverPUL = _driverPUL;
   cw = true;
   pinMode(driverPUL, OUTPUT);
   pinMode(driverDIR, OUTPUT);
