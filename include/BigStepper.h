@@ -8,29 +8,32 @@
 class BigStepper {
 public:
   BigStepper();
-  BigStepper(uint8_t _driverDIR, uint8_t _driverPUL);
-  void Rotate(double deg);
-  void SetTargetAngle(double _targetAngle);
-  void SetMicrostepsPerStep(uint16_t _microstepsPerStep);
-  void SetStepsPerRev(uint16_t _stepsPerRev);
-  void SetPinDIR(uint8_t pin);
-  void SetPinPUL(uint8_t pin);
-  void StepToTargetAngle(uint8_t delay_ms);
-  bool HasReachedTarget();
+  BigStepper(uint8_t driverDIR, uint8_t driverPUL);
   double GetCurrentAngle();
   double GetTargetAngle();
-  uint8_t driverDIR;
-  uint8_t driverPUL;
+  uint8_t GetDriverDIR();
+  uint8_t GetDriverPUL();
+  bool HasReachedTarget();
+  void Rotate(double deg);
+  void SetMicrostepsPerStep(uint16_t microstepsPerStep);
+  void SetPinDIR(uint8_t pin);
+  void SetPinPUL(uint8_t pin);
+  void SetStepsPerRev(uint16_t stepsPerRev);
+  void SetTargetAngle(double targetAngle);
+  void StepToTargetAngle(uint8_t _delay_ms);
 
 protected:
-  double currentAngle;
-  double targetAngle;
-  uint16_t microstepsPerStep;
-  uint16_t stepsPerRev;
-  void Step(uint8_t delay_ms);
+  uint16_t m_microstepsPerStep;
+  uint16_t m_stepsPerRev;
+  uint8_t m_driverDIR;
+  uint8_t m_driverPUL;
+  double m_currentAngle;
+  double m_targetAngle;
+
+  void Step(uint8_t _delay_ms);
 
 private:
-  bool cw;
+  bool m_cw;
 };
 
 #endif /* _BIG_STEPPER_H_ */

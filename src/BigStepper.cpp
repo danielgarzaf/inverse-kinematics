@@ -1,33 +1,32 @@
 #include <BigStepper.h>
 
+/********************* CONSTRUCTORS **************************/
 BigStepper::BigStepper() {}
 
 BigStepper::BigStepper(uint8_t _driverDIR, uint8_t _driverPUL) {
-  currentAngle = 0;
-  targetAngle = 0;
-  microstepsPerStep = 0;
-  stepsPerRev = 200;
-  driverDIR = _driverDIR;
-  driverPUL = _driverPUL;
-  cw = true;
-  pinMode(driverPUL, OUTPUT);
-  pinMode(driverDIR, OUTPUT);
+  m_currentAngle = 0;
+  m_targetAngle = 0;
+  m_microstepsPerStep = 0;
+  m_stepsPerRev = 200;
+  m_driverDIR = _driverDIR;
+  m_driverPUL = _driverPUL;
+  m_cw = true;
+  pinMode(m_driverPUL, OUTPUT);
+  pinMode(m_driverDIR, OUTPUT);
 }
+/****************** CONSTRUCTORS END ***********************/
+
+/********************* PUBLIC *******************************/
+uint8_t BigStepper::GetDriverDIR() { return m_driverDIR; }
+
+uint8_t BigStepper::GetDriverPUL() { return m_driverPUL; }
+
+double BigStepper::GetCurrentAngle() { return m_currentAngle; }
+
+double BigStepper::GetTargetAngle() { return m_targetAngle; }
 
 bool BigStepper::HasReachedTarget() {
-  return lrint(currentAngle) == lrint(targetAngle);
-}
-
-void BigStepper::SetPinDIR(uint8_t pin) {
-  digitalWrite(driverDIR, LOW);
-  driverDIR = pin;
-  pinMode(pin, OUTPUT);
-}
-
-void BigStepper::SetPinPUL(uint8_t pin) {
-  digitalWrite(driverPUL, LOW);
-  driverPUL = pin;
-  pinMode(pin, OUTPUT);
+  return lrint(m_currentAngle) == lrint(m_targetAngle);
 }
 
 void BigStepper::Rotate(double deg) {
@@ -36,56 +35,67 @@ void BigStepper::Rotate(double deg) {
     StepToTargetAngle(BIG_STEPPER_DELAY);
 }
 
+void BigStepper::SetMicrostepsPerStep(uint16_t microstepsPerStep) {
+  m_microstepsPerStep = microstepsPerStep;
+}
+
+void BigStepper::SetPinDIR(uint8_t pin) {
+  digitalWrite(m_driverDIR, LOW);
+  m_driverDIR = pin;
+  pinMode(pin, OUTPUT);
+}
+
+void BigStepper::SetPinPUL(uint8_t pin) {
+  digitalWrite(m_driverPUL, LOW);
+  m_driverPUL = pin;
+  pinMode(pin, OUTPUT);
+}
+
+void BigStepper::SetStepsPerRev(uint16_t stepsPerRev) {
+  m_stepsPerRev = stepsPerRev;
+}
+
+void BigStepper::SetTargetAngle(double targetAngle) {
+  m_targetAngle = targetAngle;
+}
+
 void BigStepper::StepToTargetAngle(uint8_t _delay_ms) {
   if (HasReachedTarget())
     return;
 
   // Set direction to shortest path
-  double diffAnglesCW = currentAngle - targetAngle;
-  double diffAnglesCCW = 360 - currentAngle + targetAngle;
+  double diffAnglesCW = m_currentAngle - m_targetAngle;
+  double diffAnglesCCW = 360 - m_currentAngle + m_targetAngle;
   if (abs(diffAnglesCW) > abs(diffAnglesCCW))
-    cw = true;
+    m_cw = true;
   else
-    cw = false;
+    m_cw = false;
 
-  if (cw) {
-    digitalWrite(driverDIR, LOW);
-    currentAngle += 360 / (stepsPerRev + 0.0f);
+  if (m_cw) {
+    digitalWrite(m_driverDIR, LOW);
+    m_currentAngle += 360 / (m_stepsPerRev + 0.0f);
   } else {
-    digitalWrite(driverDIR, HIGH);
-    currentAngle -= 360 / (stepsPerRev + 0.0f);
+    digitalWrite(m_driverDIR, HIGH);
+    m_currentAngle -= 360 / (m_stepsPerRev + 0.0f);
   }
 
-  if (currentAngle > 360)
-    currentAngle = fmod(currentAngle, 360); // Loop forward
-  else if (currentAngle < 0)
-    currentAngle = 360 + currentAngle; // Loop backward
+  if (m_currentAngle > 360)
+    m_currentAngle = fmod(m_currentAngle, 360); // Loop forward
+  else if (m_currentAngle < 0)
+    m_currentAngle = 360 + m_currentAngle; // Loop backward
 
-  if (microstepsPerStep > 0)
-    currentAngle /= (microstepsPerStep + 0.0f);
+  if (m_microstepsPerStep > 0)
+    m_currentAngle /= (m_microstepsPerStep + 0.0f);
 
   Step(_delay_ms);
 }
+/****************** PUBLIC END **************************/
 
+/****************** PROTECTED **************************/
 void BigStepper::Step(uint8_t _delay_ms) {
-  digitalWrite(driverPUL, HIGH);
+  digitalWrite(m_driverPUL, HIGH);
   delay(_delay_ms);
-  digitalWrite(driverPUL, LOW);
+  digitalWrite(m_driverPUL, LOW);
   delay(_delay_ms);
 }
-
-void BigStepper::SetMicrostepsPerStep(uint16_t _microstepsPerStep) {
-  microstepsPerStep = _microstepsPerStep;
-}
-
-void BigStepper::SetStepsPerRev(uint16_t _stepsPerRev) {
-  stepsPerRev = _stepsPerRev;
-}
-
-void BigStepper::SetTargetAngle(double _targetAngle) {
-  targetAngle = _targetAngle;
-}
-
-double BigStepper::GetCurrentAngle() { return currentAngle; }
-
-double BigStepper::GetTargetAngle() { return targetAngle; }
+/*************** PROTECTED END **************************/
